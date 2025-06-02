@@ -53,7 +53,6 @@ INSERT INTO Employee (FirstName, LastName, DepartmentID, Salary, HireDate, Manag
 ('Alice', 'Johnson', 2, 65000, '2020-06-20', 1, '2023-06-01'),
 ('Bob', 'Brown', 3, 48000, '2017-11-12', NULL, '2020-03-15');
 
-select * from Employee;
 
 
 -- 1. Create a procedure to get employees with salary greater than a given amount.
@@ -105,4 +104,20 @@ begin
 end
 
 exec spEmpSalaryInRange 40000, 70000
+
+
+--5. Create a procedure to increase the salary of all employees in a specific department by a given percentage.
+create procedure spUpdateSalary
+	@DepartmentID int,
+	@Percentage decimal(5,2)
+as
+begin
+	update Employee
+	set Salary = Salary + (Salary * @Percentage/100),
+	LastSalaryUpdate = Getdate()
+	where DepartmentID = @DepartmentID 
+end
+
+exec spUpdateSalary 3, 500
+
 
