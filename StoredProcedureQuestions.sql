@@ -92,3 +92,17 @@ begin
 end;
 
 exec spEmpDepartment 2
+
+
+--4. Create a procedure that accepts a salary range (min, max) and returns employees within that range.
+create procedure spEmpSalaryInRange 
+	@MinSalary int,
+	@MaxSalary int
+as
+begin
+	Select * from Employee
+	where Salary between @MinSalary AND @MaxSalary
+end
+
+exec spEmpSalaryInRange 40000, 70000
+
