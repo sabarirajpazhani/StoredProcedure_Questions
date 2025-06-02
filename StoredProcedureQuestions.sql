@@ -15,7 +15,7 @@ CREATE TABLE Employee (
     ManagerID INT NULL,
     LastSalaryUpdate DATE
 );
- 
+
 --create Department Table
 CREATE TABLE Department (
     DepartmentID INT IDENTITY(1,1) PRIMARY KEY,
@@ -80,3 +80,15 @@ begin
 end
 
 exec spUpdateDepartment 2, 3
+
+
+--3. Create a procedure to return the total count of employees in a given department.
+create procedure spEmpDepartment
+	@DepartmentID int
+as
+begin
+	select count(*) TotalCount from Employee 
+	where DepartmentID = @DepartmentID
+end;
+
+exec spEmpDepartment 2
