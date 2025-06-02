@@ -121,3 +121,23 @@ end
 exec spUpdateSalary 3, 500
 
 
+--Create a procedure to log changes in employee salary: it should insert old and new salary into a separate table whenever an update happens.
+create procedure spInsertSalaryLog
+	@EmployeeID int,
+	@newSalary decimal (10,2)
+as
+begin
+	declare @OldSalary int
+	select @OldSalary = Salary from Employee where EmployeeID = @EmployeeID
+	update Employee 
+	set Salary = @newSalary
+	where EmployeeID = @EmployeeID
+
+	insert into SalaryChangeLog (EmployeeID,OldSalary,NewSalary,ChangeDate)
+	values(@EmployeeID,@OldSalary,@newSalary,getdate());
+end
+
+exec spInsertSalaryLog 4,68000
+
+select * from SalaryChangeLog;
+select * from Employee;
