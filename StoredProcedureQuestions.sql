@@ -15,7 +15,7 @@ CREATE TABLE Employee (
     ManagerID INT NULL,
     LastSalaryUpdate DATE
 );
-
+ 
 --create Department Table
 CREATE TABLE Department (
     DepartmentID INT IDENTITY(1,1) PRIMARY KEY,
