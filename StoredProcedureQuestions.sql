@@ -67,3 +67,16 @@ end;
 
 exec spEmpSalary 50000
 
+
+--2. Create a procedure to update the department of an employee by employee ID.
+create Procedure spUpdateDepartment
+	@EmployeeID int,
+	@DepartmentID int
+as
+begin
+	update Employee
+	set DepartmentID = @DepartmentID 
+	where EmployeeID = @EmployeeID
+end
+
+exec spUpdateDepartment 2, 3
