@@ -121,7 +121,7 @@ end
 exec spUpdateSalary 3, 500
 
 
---Create a procedure to log changes in employee salary: it should insert old and new salary into a separate table whenever an update happens.
+--6. Create a procedure to log changes in employee salary: it should insert old and new salary into a separate table whenever an update happens.
 create procedure spInsertSalaryLog
 	@EmployeeID int,
 	@newSalary decimal (10,2)
@@ -141,3 +141,15 @@ exec spInsertSalaryLog 4,68000
 
 select * from SalaryChangeLog;
 select * from Employee;
+
+--7. Create a procedure to retrieve employees hired within a certain date range.
+create procedure spEmpInCertainDateRange
+	@StartingDate date,
+	@EndDate date
+as
+begin
+	select * from Employee 
+	where HireDate between @StartingDate and @EndDate
+end
+
+exec spEmpInCertainDateRange '2017-11-01','2019-11-01'
