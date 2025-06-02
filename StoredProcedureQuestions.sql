@@ -153,3 +153,14 @@ begin
 end
 
 exec spEmpInCertainDateRange '2017-11-01','2019-11-01'
+
+--8. Create a procedure that deletes employees who have not received a salary update for more than 2 years.
+create procedure spDeleteEmpSalaryUpdate
+as
+begin
+	delete from Employee 
+	where LastSalaryUpdate < dateadd(year, -2, getdate());
+end
+
+exec spDeleteEmpSalaryUpdate 
+
