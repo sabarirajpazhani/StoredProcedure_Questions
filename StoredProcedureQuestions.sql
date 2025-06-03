@@ -164,3 +164,19 @@ end
 
 exec spDeleteEmpSalaryUpdate 
 
+--9. Create a procedure to insert a new department into a Department table, returning the newly created DepartmentID.
+create procedure spInsertNewDepartment
+	@DepartmentName NVARCHAR(100)
+as 
+begin
+	insert into Department(DepartmentName)
+	values (@DepartmentName);
+
+	declare @NewDepartmentID int = Scope_Identity();
+
+	print 'New Department was Inserted Successfully. And the Department ID is '+cast(@NewDepartmentID as varchar)
+end;
+
+exec spInsertNewDepartment 'Development';
+
+select * from Department;
