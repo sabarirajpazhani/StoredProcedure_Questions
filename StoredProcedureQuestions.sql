@@ -180,3 +180,17 @@ end;
 exec spInsertNewDepartment 'Development';
 
 select * from Department;
+
+--10. Create a procedure to retrieve the department-wise average salary for all departments.
+create procedure spDepartmentAvgSalary
+as
+begin
+	select d.DepartmentName,avg(e.Salary)  from Employee e
+	join Department d
+	on e.DepartmentID = d.DepartmentID
+	group by d.DepartmentName
+end;
+
+exec spDepartmentAvgSalary;
+
+select * from Employee;
