@@ -234,3 +234,14 @@ exec spDepartmentChange 2, 4;
 select * from TransferLog;
 select * from Employee;
 select * from Department;
+
+
+--13. Create a procedure to get the top N highest-paid employees.
+create procedure spHighestPaidEmp
+	@topHighest int
+as
+begin
+	select  top (@topHighest) * from Employee order by Salary desc;
+end
+
+exec spHighestPaidEmp 2;
