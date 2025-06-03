@@ -245,3 +245,12 @@ begin
 end
 
 exec spHighestPaidEmp 2;
+
+-- 14.Create a procedure that returns the employee details along with a calculated bonus (e.g., 10% of salary) as an extra column.
+create procedure spBonusSalary
+as
+begin
+	select * ,Salary*0.10 as Bonus from Employee
+end
+
+exec spBonusSalary;
