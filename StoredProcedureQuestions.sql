@@ -208,3 +208,29 @@ drop procedure spManagers;
 
 exec spManagers;
 select * from Employee;
+
+--12.Create a procedure to transfer an employee from one department to another and log the transfer details in a separate TransferLog table using a transaction.
+create procedure spDepartmentChange
+	@EmployeeID int,
+	@newDepartmentID int
+as 
+begin
+	declare @oldDepartmentID int
+	select @oldDepartmentID = DepartmentID from Employee where EmployeeID = @EmployeeID
+
+	update Employee
+	set DepartmentID = @newDepartmentID
+	where EmployeeID = @EmployeeID
+
+	insert into TransferLog(EmployeeID,OldDepartmentID,NewDepartmentID,TransferDate)
+	values (@EmployeeID,@oldDepartmentID,@newDepartmentID,GETDATE());
+
+	print 'Department has been Successfully changed';
+end
+
+exec spDepartmentChange 2, 4;
+
+
+select * from TransferLog;
+select * from Employee;
+select * from Department;
