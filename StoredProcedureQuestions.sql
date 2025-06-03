@@ -193,4 +193,18 @@ end;
 
 exec spDepartmentAvgSalary;
 
+
+
+--11. Create a procedure that returns employees along with their manager's name (assume Employee table has ManagerID).
+create procedure spManagers
+as
+begin
+	select e.FirstName as Employee, m.FirstName as Manager from Employee e
+	left join Employee m
+	on e.ManagerID = m.EmployeeID
+end
+
+drop procedure spManagers;
+
+exec spManagers;
 select * from Employee;
